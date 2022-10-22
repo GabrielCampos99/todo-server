@@ -5,6 +5,9 @@
   "repository": "https://github.com/GabrielCampos99/todo-server.git",
   "author": "Gabriel Campos <gabrielsouza.ccampos@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
+  },
   "devDependencies": {
     "@types/node": "^18.11.3",
     "ts-node-dev": "^2.0.0",
