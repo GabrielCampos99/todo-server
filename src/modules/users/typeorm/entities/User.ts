@@ -28,3 +28,6 @@ class User {
 }
 
 export default User;
+
+//Criar migration yarn typeorm migration:create -n create-user
+//Rodar migration yarn typeorm migration:run
