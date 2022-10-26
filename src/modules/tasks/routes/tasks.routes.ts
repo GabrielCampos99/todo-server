@@ -19,4 +19,14 @@ tasksRouter.post(
   usersController.create
 );
 
+tasksRouter.get(
+  "/:id",
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    },
+  }),
+  usersController.create
+);
+
 export default tasksRouter;
