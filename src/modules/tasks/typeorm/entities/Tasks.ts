@@ -1,4 +1,4 @@
-import User from "@modules/users/typeorm/entities/User";
+import User from "../../../users/typeorm/entities/User";
 import {
   Column,
   CreateDateColumn,
