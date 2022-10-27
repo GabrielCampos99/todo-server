@@ -29,4 +29,29 @@ tasksRouter.get(
   usersController.create
 );
 
+tasksRouter.put(
+  "/:id",
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    },
+    [Segments.BODY]: {
+      title: Joi.string().required(),
+      description: Joi.string().optional(),
+      user_id: Joi.string().required(),
+    },
+  }),
+  usersController.create
+);
+
+tasksRouter.get(
+  "/",
+  celebrate({
+    [Segments.BODY]: {
+      user_id: Joi.string().required(),
+    },
+  }),
+  usersController.list
+);
+
 export default tasksRouter;
