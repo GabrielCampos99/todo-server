@@ -1,5 +1,7 @@
 import UsersRepository from "@modules/users/typeorm/repositories/UsersRepository";
 import AppError from "@shared/errors/AppError";
+import { IResponse } from "@shared/interfaces/IResponse";
+import { StatusCodes } from "http-status-codes";
 import { getCustomRepository, getRepository } from "typeorm";
 import Tasks from "../typeorm/entities/Tasks";
 
@@ -9,12 +11,13 @@ interface IRequest {
   user_id: string;
 }
 
+
 class CreateTasksServices {
   public async execute({
     title,
     description,
     user_id,
-  }: IRequest): Promise<Tasks> {
+  }: IRequest): Promise<IResponse<object>> {
     const tasksRepository = getRepository(Tasks);
 
     const usersRepository = getCustomRepository(UsersRepository);
@@ -26,7 +29,7 @@ class CreateTasksServices {
 
     const task = tasksRepository.save({ title, description, user_id: user.id });
 
-    return task;
+    return { statusCode: StatusCodes.OK, data: task };
   }
 }
 
