@@ -1,3 +1,4 @@
+import { isAuthenticated } from "@shared/http/middlewares/isAuthenticated";
 import { celebrate, Segments } from "celebrate";
 import { Router } from "express";
 import Joi from "joi";
@@ -6,6 +7,7 @@ import TasksController from "../controller/TasksController";
 const usersController = new TasksController();
 
 const tasksRouter = Router();
+tasksRouter.use(isAuthenticated);
 
 tasksRouter.post(
   "/",
@@ -13,7 +15,6 @@ tasksRouter.post(
     [Segments.BODY]: {
       title: Joi.string().required(),
       description: Joi.string().optional(),
-      user_id: Joi.string().required(),
     },
   }),
   usersController.create
@@ -26,7 +27,7 @@ tasksRouter.get(
       id: Joi.string().required(),
     },
   }),
-  usersController.create
+  usersController.get
 );
 
 tasksRouter.put(
@@ -38,20 +39,11 @@ tasksRouter.put(
     [Segments.BODY]: {
       title: Joi.string().required(),
       description: Joi.string().optional(),
-      user_id: Joi.string().required(),
     },
   }),
   usersController.create
 );
 
-tasksRouter.get(
-  "/",
-  celebrate({
-    [Segments.BODY]: {
-      user_id: Joi.string().required(),
-    },
-  }),
-  usersController.list
-);
+tasksRouter.get("/", usersController.list);
 
 export default tasksRouter;

@@ -6,7 +6,9 @@ import UpdateTaskService from "../services/UpdateTaskService";
 
 export default class TasksController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { title, description, user_id } = request.body;
+    const user_id = request.user.id;
+
+    const { title, description } = request.body;
 
     const createTask = new CreateTasksServices();
 
@@ -32,7 +34,8 @@ export default class TasksController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { title, description, user_id, id } = request.body;
+    const user_id = request.user.id;
+    const { title, description, id } = request.body;
 
     const updateTask = new UpdateTaskService();
 
@@ -47,7 +50,8 @@ export default class TasksController {
   }
 
   public async list(request: Request, response: Response): Promise<Response> {
-    const { user_id, query } = request.body;
+    const user_id = request.user.id;
+    const { query } = request.body;
 
     const listTask = new ListTasksService();
 
