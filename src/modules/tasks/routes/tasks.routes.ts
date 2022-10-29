@@ -13,8 +13,8 @@ tasksRouter.post(
   "/",
   celebrate({
     [Segments.BODY]: {
-      title: Joi.string().required(),
       description: Joi.string().optional(),
+      title: Joi.string().required(),
     },
   }),
   usersController.create
@@ -37,11 +37,22 @@ tasksRouter.put(
       id: Joi.string().required(),
     },
     [Segments.BODY]: {
-      title: Joi.string().required(),
       description: Joi.string().optional(),
+      completed: Joi.boolean().optional(),
+      title: Joi.string(),
     },
   }),
-  usersController.create
+  usersController.update
+);
+
+tasksRouter.delete(
+  "/:id",
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    },
+  }),
+  usersController.delete
 );
 
 tasksRouter.get("/", usersController.list);
