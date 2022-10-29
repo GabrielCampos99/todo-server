@@ -1,5 +1,6 @@
 import { Response, Request } from "express";
 import CreateTasksServices from "../services/CreateTasksServices";
+import DeleteTaskService from "../services/DeleteTaskSerice";
 import GetTaskService from "../services/GetTaskService";
 import ListTasksService from "../services/ListTasksService";
 import UpdateTaskService from "../services/UpdateTaskService";
@@ -23,9 +24,7 @@ export default class TasksController {
 
   public async get(request: Request, response: Response): Promise<Response> {
     const { id } = request.body;
-
     const getTask = new GetTaskService();
-
     const task = await getTask.execute({
       id,
     });
@@ -34,15 +33,15 @@ export default class TasksController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
+    const { title, description, completed } = request.body;
     const user_id = request.user.id;
-    const { title, description, id } = request.body;
-
+    const { id } = request.params;
     const updateTask = new UpdateTaskService();
-
     const task = await updateTask.execute({
-      title,
       description,
+      completed,
       user_id,
+      title,
       id,
     });
 
@@ -52,12 +51,24 @@ export default class TasksController {
   public async list(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
     const { query } = request.body;
-
     const listTask = new ListTasksService();
-
     const task = await listTask.execute({
       user_id,
       query,
+    });
+
+    return response.json(task);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { id } = request.params;
+
+    const deleteTask = new DeleteTaskService();
+
+    const task = await deleteTask.execute({
+      user_id,
+      id,
     });
 
     return response.json(task);
