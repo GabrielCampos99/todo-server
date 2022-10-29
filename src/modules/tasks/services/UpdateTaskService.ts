@@ -6,6 +6,7 @@ interface IRequest {
   title: string;
   description?: string;
   user_id: string;
+  completed: boolean;
   id: string;
 }
 
@@ -14,8 +15,12 @@ class UpdateTaskService {
     id,
     title,
     description,
+    completed,
     user_id,
-  }: IRequest): Promise<Tasks> {
+  }: IRequest): Promise<Tasks | undefined> {
+    if (!title && !description)
+      throw new AppError("You must need send some information");
+
     const tasksRepository = getRepository(Tasks);
 
     const taskFound = await tasksRepository.findOne(id);
@@ -28,7 +33,11 @@ class UpdateTaskService {
       throw new AppError("Task can be modified by his own onwner.");
     }
 
-    const task = tasksRepository.save({ title, description });
+    taskFound.title = title;
+    taskFound.description = description;
+    taskFound.completed = completed;
+
+    const task = tasksRepository.save(taskFound);
 
     return task;
   }
