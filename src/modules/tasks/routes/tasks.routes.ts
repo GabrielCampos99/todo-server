@@ -4,7 +4,7 @@ import { Router } from "express";
 import Joi from "joi";
 import TasksController from "../controller/TasksController";
 
-const usersController = new TasksController();
+const tasksController = new TasksController();
 
 const tasksRouter = Router();
 tasksRouter.use(isAuthenticated);
@@ -17,7 +17,7 @@ tasksRouter.post(
       title: Joi.string().required(),
     },
   }),
-  usersController.create
+  tasksController.create
 );
 
 tasksRouter.get(
@@ -27,7 +27,7 @@ tasksRouter.get(
       id: Joi.string().required(),
     },
   }),
-  usersController.get
+  tasksController.get
 );
 
 tasksRouter.put(
@@ -42,7 +42,7 @@ tasksRouter.put(
       title: Joi.string(),
     },
   }),
-  usersController.update
+  tasksController.update
 );
 
 tasksRouter.delete(
@@ -52,9 +52,9 @@ tasksRouter.delete(
       id: Joi.string().required(),
     },
   }),
-  usersController.delete
+  tasksController.delete
 );
 
-tasksRouter.get("/", usersController.list);
+tasksRouter.get("/", tasksController.list);
 
 export default tasksRouter;

@@ -23,7 +23,7 @@ export default class TasksController {
   }
 
   public async get(request: Request, response: Response): Promise<Response> {
-    const { id } = request.body;
+    const { id } = request.params;
     const getTask = new GetTaskService();
     const task = await getTask.execute({
       id,
