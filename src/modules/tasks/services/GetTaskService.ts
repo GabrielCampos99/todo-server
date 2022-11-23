@@ -7,7 +7,6 @@ interface IRequest {
 }
 class GetTaskService {
   public async execute({ id }: IRequest): Promise<Tasks | undefined> {
-    console.log(id)
     const tasksRepository = getRepository(Tasks);
     const task = await tasksRepository.findOne({ where: { id } });
     if (!task) {
