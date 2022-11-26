@@ -6,6 +6,7 @@ import Tasks from "../typeorm/entities/Tasks";
 interface IRequest {
   user_id: string;
   query: any;
+  page: string;
 }
 
 interface IPaginatedResponse {
@@ -19,10 +20,14 @@ interface IPaginatedResponse {
 }
 
 class ListTasksService {
-  public async execute({ user_id, query }: IRequest): Promise<IPaginatedResponse> {
+  public async execute({
+    user_id,
+    query,
+    page,
+  }: IRequest): Promise<IPaginatedResponse> {
+    console.log(page, 'aqui')
     const take = 10;
-    const page = 1;
-    const skip = (page - 1) * take;
+    const skip = (Number(page) - 1) * take;
     const tasksRepository = getRepository(Tasks);
 
     if (!user_id) {
@@ -34,7 +39,7 @@ class ListTasksService {
       skip: skip,
     });
 
-    return paginateResponse(tasksFound, page, take);
+    return paginateResponse(tasksFound, Number(page), take);
   }
 }
 

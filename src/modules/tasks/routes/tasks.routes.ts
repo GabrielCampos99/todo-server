@@ -13,7 +13,7 @@ tasksRouter.post(
   "/",
   celebrate({
     [Segments.BODY]: {
-      description: Joi.string().optional(),
+      description: Joi.string().optional().allow(null),
       title: Joi.string().required(),
     },
   }),
@@ -37,7 +37,7 @@ tasksRouter.put(
       id: Joi.string().required(),
     },
     [Segments.BODY]: {
-      description: Joi.string().optional(),
+      description: Joi.string().optional().allow(null),
       completed: Joi.boolean().optional(),
       title: Joi.string(),
     },
@@ -55,6 +55,14 @@ tasksRouter.delete(
   tasksController.delete
 );
 
-tasksRouter.get("/", tasksController.list);
+tasksRouter.get(
+  "/",
+  celebrate({
+    [Segments.PARAMS]: {
+      page: Joi.string().optional(),
+    },
+  }),
+  tasksController.list
+);
 
 export default tasksRouter;

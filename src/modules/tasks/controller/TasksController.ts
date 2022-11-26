@@ -50,11 +50,14 @@ export default class TasksController {
 
   public async list(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
+    const page = request.query.page as string;
+
     const { query } = request.body;
     const listTask = new ListTasksService();
     const task = await listTask.execute({
       user_id,
       query,
+      page,
     });
 
     return response.json(task);
