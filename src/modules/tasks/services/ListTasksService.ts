@@ -1,6 +1,6 @@
 import AppError from "@shared/errors/AppError";
 import { paginateResponse } from "@shared/utils/PaginationHelper";
-import { getRepository, Like } from "typeorm";
+import { getRepository } from "typeorm";
 import Tasks from "../typeorm/entities/Tasks";
 
 interface IRequest {
