@@ -45,6 +45,16 @@ tasksRouter.put(
   tasksController.update
 );
 
+tasksRouter.put(
+  "/toggle/:id",
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    },
+  }),
+  tasksController.toggle
+);
+
 tasksRouter.delete(
   "/:id",
   celebrate({

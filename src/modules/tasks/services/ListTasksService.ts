@@ -36,7 +36,8 @@ class ListTasksService {
       .createQueryBuilder("task")
       .take(take)
       .skip(skip)
-      .andWhere("user_id = :user_id", { user_id: user_id });
+      .andWhere("user_id = :user_id", { user_id: user_id })
+      .orderBy("task.id", "ASC");
 
     if (query) taskQB.andWhere("title ILIKE :query", { query: `%${query}%` });
 

@@ -3,6 +3,7 @@ import CreateTasksServices from "../services/CreateTasksServices";
 import DeleteTaskService from "../services/DeleteTaskSerice";
 import GetTaskService from "../services/GetTaskService";
 import ListTasksService from "../services/ListTasksService";
+import ToggleCompleteTaskService from "../services/ToggleCompleteTaskService";
 import UpdateTaskService from "../services/UpdateTaskService";
 
 export default class TasksController {
@@ -70,6 +71,20 @@ export default class TasksController {
     const deleteTask = new DeleteTaskService();
 
     const task = await deleteTask.execute({
+      user_id,
+      id,
+    });
+
+    return response.json(task);
+  }
+
+  public async toggle(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { id } = request.params;
+
+    const toggleTask = new ToggleCompleteTaskService();
+
+    const task = await toggleTask.execute({
       user_id,
       id,
     });
