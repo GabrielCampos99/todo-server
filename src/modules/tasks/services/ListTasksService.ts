@@ -1,6 +1,6 @@
 import AppError from "@shared/errors/AppError";
 import { paginateResponse } from "@shared/utils/PaginationHelper";
-import { getRepository } from "typeorm";
+import { getRepository, Like } from "typeorm";
 import Tasks from "../typeorm/entities/Tasks";
 
 interface IRequest {
@@ -25,19 +25,22 @@ class ListTasksService {
     query,
     page,
   }: IRequest): Promise<IPaginatedResponse> {
-    console.log(page, 'aqui')
     const take = 10;
     const skip = (Number(page) - 1) * take;
     const tasksRepository = getRepository(Tasks);
-
     if (!user_id) {
       throw new AppError("User id must be informed");
     }
-    const tasksFound = await tasksRepository.findAndCount({
-      where: { user_id },
-      take: take,
-      skip: skip,
-    });
+
+    const taskQB = tasksRepository
+      .createQueryBuilder("task")
+      .take(take)
+      .skip(skip)
+      .andWhere("user_id = :user_id", { user_id: user_id });
+
+    if (query) taskQB.andWhere("title ILIKE :query", { query: `%${query}%` });
+
+    const tasksFound = await taskQB.getManyAndCount();
 
     return paginateResponse(tasksFound, Number(page), take);
   }
