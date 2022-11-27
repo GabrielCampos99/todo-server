@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         {
-            "src": "./index.js",
+            "src": "./src/shared/http/server.ts",
             "use": "@vercel/node"
         }
     ],
@@ -13,3 +13,5 @@
         }
     ]
   }
+
+ 
