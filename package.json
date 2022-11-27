@@ -4,6 +4,9 @@
   "repository": "https://github.com/GabrielCampos99/todo-server.git",
   "author": "Gabriel Campos <gabrielsouza.ccampos@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
