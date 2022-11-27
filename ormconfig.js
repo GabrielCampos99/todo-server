@@ -1,6 +1,7 @@
+
 /* eslint-disable no-undef */
 module.exports = {
-  "type":  process.env.DB_NAME  ,
+  "type":  'postgres' ,
   "host":  process.env.DB_HOST ,
   "port":  process.env.DB_PORT ,
   "username": process.env.DB_USER ,
