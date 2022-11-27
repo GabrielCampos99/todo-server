@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-export default {
+exports.config = {
   type: process.env.DB_NAME ? process.env.DB_NAME : "postgres",
   host: process.env.DB_HOST ? process.env.DB_HOST : "localhost",
   port: process.env.DB_PORT ? process.env.DB_PORT : 5432,
