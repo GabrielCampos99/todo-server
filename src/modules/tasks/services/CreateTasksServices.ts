@@ -1,7 +1,7 @@
 import UsersRepository from "@modules/users/typeorm/repositories/UsersRepository";
 import AppError from "@shared/errors/AppError";
 import { IResponse } from "@shared/interfaces/IResponse";
-import { StatusCodes } from "http-status-codes";
+//import { StatusCodes } from "http-status-codes";
 import { getCustomRepository, getRepository } from "typeorm";
 import Tasks from "../typeorm/entities/Tasks";
 
@@ -29,7 +29,7 @@ class CreateTasksServices {
 
     const task = tasksRepository.save({ title, description, user_id: user.id });
 
-    return { statusCode: StatusCodes.OK, data: task };
+    return { statusCode: 200, data: task };
   }
 }
 
