@@ -18,6 +18,7 @@ app.use(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (error: Error, request: Request, response: Response, next: NextFunction) => {
     if (error instanceof AppError) {
+     console.log(error, 'error agqui')
       return response.status(error.statusCode).json({
         status: "error",
         message: error.message,
