@@ -4,7 +4,7 @@ import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import cors from "cors";
 import { errors } from "celebrate";
-import AppError from "./src/shared/errors/AppError";
+import AppError from "../errors/AppError";
 import "@shared/typeorm";
 import routes from "./routes/index";
 
@@ -23,9 +23,6 @@ app.use(
         message: error.message,
       });
     }
-
-    console.log(error, 'ERROR')
-
     return response.status(500).json({
       status: "error",
       message: "Internal server error",
